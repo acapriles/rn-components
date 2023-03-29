@@ -3,7 +3,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MenuItem } from '../interfaces/appInterfaces';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParams } from '../navigation/Navigation';
 
+
+type ScreenNavProp = StackNavigationProp<RootStackParams, any>;
 
 interface Props {
     menuItem: MenuItem;
@@ -11,11 +15,12 @@ interface Props {
 
 export const FlatListMenuItem = ( { menuItem }: Props) => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<ScreenNavProp>();
 
     return (
         <TouchableOpacity
             activeOpacity={ 0.8 }
+            onPress={ () => navigation.navigate( menuItem.component as any) }
         >
             
             <View style={ styles.container }>
