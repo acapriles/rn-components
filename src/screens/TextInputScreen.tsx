@@ -1,4 +1,4 @@
-import { TextInput, View, StyleSheet } from 'react-native';
+import { TextInput, View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
 import { useState } from 'react';
@@ -20,36 +20,52 @@ export const TextInputScreen = () => {
 
 
     return (
-        <View style={ styles.globalMargin }>
-            <HeaderTitle title='Text input' />
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+            <ScrollView>
+                <TouchableWithoutFeedback onPress={ Keyboard.dismiss }>
+                    
+                    <View style={ styles.globalMargin }>
+                        <HeaderTitle title='Text input' />
 
-            <TextInput
-                style={stylesScreen.input}
-                placeholder="Name..."
-                autoCorrect={ false }
-                autoCapitalize="words"
-                onChangeText={ ( value ) => onChange( value, 'name' ) }
-            />
+                        <TextInput
+                            style={stylesScreen.input}
+                            placeholder="Name..."
+                            autoCorrect={ false }
+                            autoCapitalize="words"
+                            onChangeText={ ( value ) => onChange( value, 'name' ) }
+                        />
 
-            <TextInput
-                style={stylesScreen.input}
-                placeholder="Email..."
-                autoCorrect={ false }
-                autoCapitalize="none"
-                onChangeText={ ( value ) => onChange( value, 'email' ) }
-                keyboardType="email-address"
-                keyboardAppearance='dark'
-            />
+                        <TextInput
+                            style={stylesScreen.input}
+                            placeholder="Email..."
+                            autoCorrect={ false }
+                            autoCapitalize="none"
+                            onChangeText={ ( value ) => onChange( value, 'email' ) }
+                            keyboardType="email-address"
+                            keyboardAppearance='dark'
+                        />
 
-            <TextInput
-                style={stylesScreen.input}
-                placeholder="Phone..."
-                onChangeText={ ( value ) => onChange( value, 'phone' ) }
-                keyboardType="phone-pad"
-            />
 
-            <HeaderTitle title={ JSON.stringify( form, null, 4 ) } />
-        </View>
+                        <HeaderTitle title={ JSON.stringify( form, null, 4 ) } />
+
+                        <HeaderTitle title={ JSON.stringify( form, null, 4 ) } />
+
+
+                        <TextInput
+                            style={stylesScreen.input}
+                            placeholder="Phone..."
+                            onChangeText={ ( value ) => onChange( value, 'phone' ) }
+                            keyboardType="phone-pad"
+                        />
+
+                        <View style={{ height: 100 }} />
+
+                    </View>
+                </TouchableWithoutFeedback>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
