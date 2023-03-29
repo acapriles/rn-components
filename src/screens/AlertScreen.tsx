@@ -26,8 +26,16 @@ export const AlertScreen = () => {
         );
     };
 
-    const showPromt = () => {
-
+    // Only IOS
+    const showPrompt = () => {
+        Alert.prompt(
+            'Are you sure?',
+            'Text body',
+            ( valor: string ) => console.log('info: ', valor),
+            'plain-text',
+            'Placeholder',
+            'email-address'
+        )
     }
 
 
@@ -40,6 +48,12 @@ export const AlertScreen = () => {
                 onPress={ showAlert }
             />
 
+            <View style={{ height: 10 }} />
+
+            <Button 
+                title='Show Prompt'
+                onPress={ showPrompt }
+            />
             
         </View>
     )
