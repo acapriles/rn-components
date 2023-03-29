@@ -1,22 +1,18 @@
-import { TextInput, View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TextInput, View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard, Text } from 'react-native';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
 import { useState } from 'react';
+import { useForm } from '../hooks/useForm';
+import { CustomSwitch } from '../components/CustomSwitch';
 
 export const TextInputScreen = () => {
 
-    const [form, setForm] = useState({
+    const { name, email, phone, isSubscribed, form, onChange } = useForm({
         name: '',
         email: '',
         phone: '',
+        isSubscribed: false
     });
-
-    const onChange = ( value: string, field: keyof typeof form ) => {
-        setForm({
-            ...form,
-            [ field ]: value,
-        })
-    }
 
 
     return (
@@ -46,6 +42,11 @@ export const TextInputScreen = () => {
                             keyboardType="email-address"
                             keyboardAppearance='dark'
                         />
+
+                        <View style={ stylesScreen.switchRow }>
+                            <Text style={ stylesScreen.switchText }>Suscribirse:</Text>
+                            <CustomSwitch isOn={ isSubscribed } onChange={ ( value ) => onChange( value, 'isSubscribed' ) } />
+                        </View>
 
 
                         <HeaderTitle title={ JSON.stringify( form, null, 4 ) } />
@@ -79,4 +80,13 @@ const stylesScreen = StyleSheet.create({
         borderRadius: 10,
         marginVertical: 10,
     },
+    switchRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginVertical: 5
+    },
+    switchText: {
+        fontSize: 25,
+    }
 });
