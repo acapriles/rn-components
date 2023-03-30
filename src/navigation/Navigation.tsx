@@ -7,6 +7,8 @@ import { SwitchScreen } from '../screens/SwitchScreen';
 import { AlertScreen } from '../screens/AlertScreen';
 import { TextInputScreen } from '../screens/TextInputScreen';
 import { PullToRefreshScreen } from '../screens/PullToRefreshScreen';
+import { CustomSectionListScreen } from '../screens/CustomSectionListScreen';
+import { ModalScreen } from '../screens/ModalScreen';
 
 //? Defines the parameters that the screens receive
 export type RootStackParams = {
@@ -17,6 +19,8 @@ export type RootStackParams = {
     AlertScreen: undefined;
     TextInputScreen: undefined;
     PullToRefreshScreen: undefined;
+    CustomSectionListScreen: undefined;
+    ModalScreen: undefined;
 }
 
 
@@ -27,6 +31,9 @@ export const Navigation = () => {
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
+                cardStyle: {
+                    backgroundColor: 'white'
+                }
             }}
         >
             <Stack.Screen name="HomeScreen" component={ HomeScreen } />
@@ -36,6 +43,8 @@ export const Navigation = () => {
             <Stack.Screen name="AlertScreen" component={ AlertScreen } />
             <Stack.Screen name="TextInputScreen" component={ TextInputScreen } />
             <Stack.Screen name="PullToRefreshScreen" component={ PullToRefreshScreen } />
+            <Stack.Screen name="CustomSectionListScreen" component={ CustomSectionListScreen } />
+            <Stack.Screen name="ModalScreen" component={ ModalScreen } />
         </Stack.Navigator>
     );
 }
