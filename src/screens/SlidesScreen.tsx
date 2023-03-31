@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { ImageSourcePropType, View, SafeAreaView, Text, Dimensions, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useAnimation } from '../hooks/useAnimation';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../navigation/Navigation';
+import { ThemeContext } from '../context/theme/ThemeContext';
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -38,6 +39,8 @@ interface Props extends StackScreenProps<RootStackParams, any>{};
 
 export const SlidesScreen = ( { navigation }: Props ) => {
 
+    const { theme: { colors, dividerColor, dark } } = useContext( ThemeContext );
+
     const [ activeIndex, setActiveIndex ] = useState( 0 );
     const isVisible = useRef( false );
     const { opacity, fadeIn } = useAnimation();
@@ -47,7 +50,7 @@ export const SlidesScreen = ( { navigation }: Props ) => {
             <View
                 style={{
                     flex: 1,
-                    backgroundColor: 'white',
+                    backgroundColor: colors.background,
                     borderRadius: 5,
                     padding: 40,
                     justifyContent: 'center'
@@ -62,8 +65,8 @@ export const SlidesScreen = ( { navigation }: Props ) => {
                     }}
                 />
 
-                <Text style={ styles.title }>{ item.title }</Text>
-                <Text style={ styles.subTitle }>{ item.desc }</Text>
+                <Text style={{ ...styles.title, color: colors.text }}>{ item.title }</Text>
+                <Text style={{ ...styles.subTitle, color: colors.text }}>{ item.desc }</Text>
 
             </View>
         )
@@ -107,7 +110,7 @@ export const SlidesScreen = ( { navigation }: Props ) => {
                         height: 10,
                         borderRadius: 5,
                         // marginHorizontal: 8,
-                        backgroundColor: '#5856D6'
+                        backgroundColor: colors.primary
                     }}
                     inactiveDotStyle={{
                         // Define styles for inactive dots here
@@ -130,7 +133,7 @@ export const SlidesScreen = ( { navigation }: Props ) => {
                         }}
                         style={{
                             flexDirection: 'row',
-                            backgroundColor: '#5856D6',
+                            backgroundColor: colors.primary,
                             width: 140,
                             height: 50,
                             borderRadius: 10,
@@ -141,11 +144,11 @@ export const SlidesScreen = ( { navigation }: Props ) => {
                     >
                         <Text style={{
                             fontSize: 25,
-                            color: 'white'
+                            color: colors.text
                         }}>
                             Enter
                         </Text>
-                        <Icon name='chevron-forward-outline' size={ 30 } color="white" />
+                        <Icon name='chevron-forward-outline' size={ 30 } color={ colors.text } />
                     </TouchableOpacity>
                 </Animated.View>
             </View>
